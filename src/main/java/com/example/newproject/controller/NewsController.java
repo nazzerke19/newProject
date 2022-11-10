@@ -15,7 +15,7 @@ public class NewsController {
     @Autowired
     NewsService newsService;
 
- @PostMapping
+    @PostMapping
     public NewsModel addOwner(@RequestBody News news) {
      return newsService.addNews(news);
     }
@@ -25,11 +25,15 @@ public class NewsController {
      NewsModel news = newsService.getNewsById(id);
      return ResponseEntity.ok(news);
     }
+    /*
     @GetMapping
     public List<NewsModel> getAllNews() {
-     return newsService.getAllNews();
+     return newsService.getAllNews()
+    }*/
+    @GetMapping
+    public ResponseEntity getAllNews() {
+        return ResponseEntity.ok(newsService.getAllNews());
     }
-
     @PutMapping("{id}")
     public ResponseEntity<NewsModel> updateNews(@PathVariable long id, @RequestBody NewsModel newsDetails) {
      NewsModel updateNews = newsService.updateNews(id,newsDetails);

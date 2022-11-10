@@ -14,12 +14,11 @@ public class NewsService {
     @Autowired
     NewsRepository newsRepository;
 
-    public News addNews(News news){
-
-        return newsRepository.save(news);
+    public NewsModel addNews(News news) {
+        return NewsModel.toModel(newsRepository.save(news));
     }
 
-    public List<NewsModel> getAllNews(){
+    public List<NewsModel> getAllNews() {
         Iterable<News> all = newsRepository.findAll();
         List<NewsModel> newsModelList = new ArrayList<>();
         for (News owner : all) {
@@ -30,30 +29,25 @@ public class NewsService {
 
     }
 
-    public News getNewsById(Long id){
-        return newsRepository.findById(id).get();
+    public NewsModel getNewsById(Long id) {
+        News news = newsRepository.findById(id).get();
+        return NewsModel.toModel(news);
     }
 
-    public News updateNews(Long id, News news){
+    public NewsModel updateNews(Long id, NewsModel news){
         News news1 = newsRepository.findById(id).get();
         news1.setTitle(news.getTitle());
         news1.setBody(news.getBody());
-        news1.setImage(news.getImage());
-
-        return  newsRepository.save(news1);
+        return  NewsModel.toModel(newsRepository.save(news1));
     }
-    public News updatePartiallyNews(Long id, News news){
+    public NewsModel updatePartiallyNews(Long id, NewsModel news) {
         News news1 = newsRepository.findById(id).get();
         if (news.getTitle() != null) {    news1.setTitle(news.getTitle()); }
         if (news.getBody() != null) {  news1.setBody(news.getBody()); }
-        if (news.getImage() != null) { news1.setImage(news.getImage()); }
-
-
-
-        return  newsRepository.save(news1);
+       // if (news.getImage() != null) { news1.setImage(news.getImage()); }
+        return  NewsModel.toModel(newsRepository.save(news1));
     }
-    public void deleteNews(Long id){
-
+    public void deleteNews(Long id) {
         newsRepository.deleteById(id);
     }
 

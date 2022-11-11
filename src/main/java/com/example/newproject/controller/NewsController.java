@@ -25,11 +25,7 @@ public class NewsController {
      NewsModel news = newsService.getNewsById(id);
      return ResponseEntity.ok(news);
     }
-    /*
-    @GetMapping
-    public List<NewsModel> getAllNews() {
-     return newsService.getAllNews()
-    }*/
+
     @GetMapping
     public ResponseEntity getAllNews() {
         return ResponseEntity.ok(newsService.getAllNews());

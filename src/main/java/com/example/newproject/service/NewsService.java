@@ -21,12 +21,11 @@ public class NewsService {
     public List<NewsModel> getAllNews() {
         Iterable<News> all = newsRepository.findAll();
         List<NewsModel> newsModelList = new ArrayList<>();
-        for (News owner : all) {
-            NewsModel newsModel = NewsModel.toModel(owner);
+        for (News news : all) {
+            NewsModel newsModel = NewsModel.toModel(news);
             newsModelList.add(newsModel);
         }
         return newsModelList;
-
     }
 
     public NewsModel getNewsById(Long id) {

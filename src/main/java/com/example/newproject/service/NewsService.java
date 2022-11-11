@@ -39,6 +39,7 @@ public class NewsService {
         news1.setBody(news.getBody());
         return  NewsModel.toModel(newsRepository.save(news1));
     }
+
     public NewsModel updatePartiallyNews(Long id, NewsModel news) {
         News news1 = newsRepository.findById(id).get();
         if (news.getTitle() != null) {    news1.setTitle(news.getTitle()); }
@@ -46,6 +47,7 @@ public class NewsService {
        // if (news.getImage() != null) { news1.setImage(news.getImage()); }
         return  NewsModel.toModel(newsRepository.save(news1));
     }
+
     public void deleteNews(Long id) {
         newsRepository.deleteById(id);
     }

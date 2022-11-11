@@ -24,22 +24,22 @@ public class BlogController {
         return ResponseEntity.ok(blogService.getAllBlogs());
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public  ResponseEntity getBlogById(@PathVariable Long id) {
         return ResponseEntity.ok(blogService.getBlogById(id));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BlogModel> updateBlog(@PathVariable Long id, @RequestBody BlogModel blog) {
         return ResponseEntity.ok(blogService.updateBlog(id, blog));
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<BlogModel> updatePartiallyBlog(@PathVariable Long id, @RequestBody BlogModel blogModel) {
         return ResponseEntity.ok(blogService.updatePartiallyBlog(id,blogModel));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteBlog(@PathVariable Long id) {
         blogService.deleteBlog(id);
     }

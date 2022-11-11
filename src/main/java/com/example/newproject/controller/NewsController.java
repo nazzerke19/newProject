@@ -20,7 +20,7 @@ public class NewsController {
      return newsService.addNews(news);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity getNewsById(@PathVariable Long id) {
      NewsModel news = newsService.getNewsById(id);
      return ResponseEntity.ok(news);
@@ -30,20 +30,21 @@ public class NewsController {
     public ResponseEntity getAllNews() {
         return ResponseEntity.ok(newsService.getAllNews());
     }
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<NewsModel> updateNews(@PathVariable long id, @RequestBody NewsModel newsDetails) {
      NewsModel updateNews = newsService.updateNews(id,newsDetails);
              return ResponseEntity.ok(updateNews);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<NewsModel> updatePatchNews(@PathVariable long id, @RequestBody NewsModel newsDetails) {
         NewsModel updateNews = newsService.updatePartiallyNews(id,newsDetails);
         return ResponseEntity.ok(updateNews);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteNews(@PathVariable Long id) {
      newsService.deleteNews(id);
     }
-}
+
+    }

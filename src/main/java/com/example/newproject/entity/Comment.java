@@ -1,5 +1,7 @@
 package com.example.newproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,13 @@ public class Comment {
     @Column(name = "body")
     private String body;
 
+    @JoinColumn(name = "owner")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Article owner;
 
-//    private Article owner;
-  //  @Column(name = "parent")
-   // @ManyToOne
-  //  private Comment parent;
+    @JoinColumn(name = "parent")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JsonIgnore
+    private Comment parent;
 
 }

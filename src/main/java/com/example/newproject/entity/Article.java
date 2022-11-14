@@ -11,10 +11,13 @@ import java.awt.*;
 
 @Getter
 @Setter
-@MappedSuperclass
-public abstract class Article {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="discriminator",
+        discriminatorType = DiscriminatorType.STRING)
+@Entity(name = "article")
+public  class Article {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     @Column(name = "title")
@@ -24,6 +27,11 @@ public abstract class Article {
     @Column(name = "body")
     private String body;
 
+    public Long getId() {
+        return id;
+    }
 
-
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

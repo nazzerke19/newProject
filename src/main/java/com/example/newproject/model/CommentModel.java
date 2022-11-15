@@ -11,14 +11,18 @@ import lombok.Setter;
 @Getter
 public class CommentModel {
     private String body;
+    private Long ownerId;
+    private Long parentId;
+    private String ownerTitle;
     private Article owner;
     private Comment parent;
-
     public static CommentModel toModel(Comment comment){
         CommentModel commentModel = new CommentModel();
+        commentModel.setParentId(comment.getParent().getId());
+        //commentModel.setParent(comment.getParent());
         commentModel.setBody(comment.getBody());
-        commentModel.setParent(comment.getParent());
-        commentModel.setOwner(comment.getOwner());
+        commentModel.setOwnerId(comment.getOwner().getId());
+        commentModel.setOwnerTitle(comment.getOwner().getTitle());
         return commentModel;
     }
 }

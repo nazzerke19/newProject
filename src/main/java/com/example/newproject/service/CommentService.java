@@ -4,9 +4,7 @@ import com.example.newproject.entity.Comment;
 import com.example.newproject.model.CommentModel;
 import com.example.newproject.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 

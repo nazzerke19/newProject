@@ -38,13 +38,12 @@ public class CommentService {
     }
 
     public List<CommentModel> getCommentThatContainsWord(String s) {
-        Iterable<Comment> comments = commentRepository.findAll();
+
+        Iterable<Comment> comments = commentRepository.getCommentsByBodyContaining(s);
         List<CommentModel> commentModel = new ArrayList<>();
         for (Comment comment:comments){
-            if (comment.getBody().contains(s)) {
-                CommentModel commentModel1 = CommentModel.toModel(comment);
-                commentModel.add(commentModel1);
-            }
+            CommentModel commentModel1 = CommentModel.toModel(comment);
+            commentModel.add(commentModel1);
         }
         return commentModel;
     }

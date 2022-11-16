@@ -30,6 +30,7 @@ public class NewsController {
     public ResponseEntity getAllNews() {
         return ResponseEntity.ok(newsService.getAllNews());
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<NewsModel> updateNews(@PathVariable long id, @RequestBody NewsModel newsDetails) {
      NewsModel updateNews = newsService.updateNews(id,newsDetails);

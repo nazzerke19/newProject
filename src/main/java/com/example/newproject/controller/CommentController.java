@@ -14,11 +14,15 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping
-    public CommentModel addComment(@RequestBody Comment comment) {
-        return commentService.addComment(comment);
+    @GetMapping("/search")
+    public ResponseEntity getCommentsContainsWord(@RequestParam(value = "word") String word) {
+        return ResponseEntity.ok(commentService.getCommentThatContainsWord(word));
     }
 
+    @PostMapping
+    public CommentModel addComment(@RequestBody CommentModel comment) {
+        return commentService.addComment(comment);
+    }
     @GetMapping
     public ResponseEntity getAllComments() {
         return ResponseEntity.ok(commentService.getAllComments());

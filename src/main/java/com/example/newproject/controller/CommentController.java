@@ -14,6 +14,16 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    @GetMapping("/orderbylike")
+    public ResponseEntity getAllCommentsOrderedByLikes() {
+        return ResponseEntity.ok(commentService.getOrderedCommentsByLikes());
+    }
+
+    @PatchMapping("/addlike/{id}")
+    public ResponseEntity<CommentModel> addLike(@PathVariable Long id) {
+        return ResponseEntity.ok(commentService.addLikeToComment(id));
+    }
+
     @GetMapping("/search")
     public ResponseEntity getCommentsContainsWord(@RequestParam(value = "word") String word) {
         return ResponseEntity.ok(commentService.getCommentThatContainsWord(word));
@@ -23,6 +33,7 @@ public class CommentController {
     public CommentModel addComment(@RequestBody CommentModel comment) {
         return commentService.addComment(comment);
     }
+
     @GetMapping
     public ResponseEntity getAllComments() {
         return ResponseEntity.ok(commentService.getAllComments());

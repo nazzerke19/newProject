@@ -14,7 +14,7 @@ public class CommentModel {
     private Long ownerId;
     private Long parentId;
     private String ownerTitle;
-
+    private Integer numberOfLikes;
 
     public static CommentModel toModel(Comment comment){
         CommentModel commentModel = new CommentModel();
@@ -22,6 +22,7 @@ public class CommentModel {
         commentModel.setBody(comment.getBody());
         if (comment.getId()!=null) commentModel.setOwnerId(comment.getOwner().getId());
         commentModel.setOwnerTitle(comment.getOwner().getTitle());
+        commentModel.setNumberOfLikes(comment.getNumberOfLikes());
         return commentModel;
     }
 }

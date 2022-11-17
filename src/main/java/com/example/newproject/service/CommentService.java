@@ -27,6 +27,20 @@ public class CommentService {
     @Autowired
     NewsRepository newsRepository;
 
+    public List<CommentModel> getOrderedCommentsByLikes() {
+        Iterable<Comment> comments = commentRepository.findAllByOrderByNumberOfLikes();
+        List<CommentModel> commentModel = new ArrayList<>();
+        for (Comment comment:comments){
+            CommentModel commentModel1 = CommentModel.toModel(comment);
+            commentModel.add(commentModel1);
+        }
+        return commentModel;
+    }
+    public CommentModel addLikeToComment(Long id) {
+        Comment comment = commentRepository.findById(id).get();
+        comment.setNumberOfLikes(comment.getNumberOfLikes()+1);
+        return CommentModel.toModel(commentRepository.save(comment));
+    }
     public List<CommentModel> getAllComments() {
         Iterable<Comment> comments = commentRepository.findAll();
         List<CommentModel> commentModel = new ArrayList<>();

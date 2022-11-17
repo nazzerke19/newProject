@@ -19,6 +19,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     @Column(name = "body")
     private String body;
 
@@ -31,5 +32,7 @@ public class Comment {
     @JsonIgnore
     private Comment parent;
 
+    @Column(name = "numberOfLikes")
+    private Integer numberOfLikes=0;
 
 }

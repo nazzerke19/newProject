@@ -9,11 +9,15 @@ import com.example.newproject.model.NewsModel;
 import com.example.newproject.repository.BlogRepository;
 import com.example.newproject.repository.CommentRepository;
 import com.example.newproject.repository.NewsRepository;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class CommentService {
@@ -30,10 +34,10 @@ public class CommentService {
     public List<CommentModel> getOrderedCommentsByLikes() {
         Iterable<Comment> comments = commentRepository.findAllByOrderByNumberOfLikes();
         List<CommentModel> commentModel = new ArrayList<>();
-        for (Comment comment:comments){
+        comments.forEach(comment -> {
             CommentModel commentModel1 = CommentModel.toModel(comment);
             commentModel.add(commentModel1);
-        }
+        });
         return commentModel;
     }
     public CommentModel addLikeToComment(Long id) {
@@ -52,13 +56,12 @@ public class CommentService {
     }
 
     public List<CommentModel> getCommentThatContainsWord(String s) {
-
         Iterable<Comment> comments = commentRepository.getCommentsByBodyContaining(s);
         List<CommentModel> commentModel = new ArrayList<>();
-        for (Comment comment:comments){
+        comments.forEach(comment -> {
             CommentModel commentModel1 = CommentModel.toModel(comment);
             commentModel.add(commentModel1);
-        }
+        });
         return commentModel;
     }
     public CommentModel getById(Long id){
@@ -73,10 +76,10 @@ public class CommentService {
     }
     public CommentModel addComment(CommentModel commentModel) {
         Comment comment = new Comment();
-        Optional<News> news = newsRepository.findById(commentModel.getOwnerId());
-        Optional<Blog> blog = blogRepository.findById(commentModel.getOwnerId());
-        if (news.isPresent()) comment.setOwner(news.get());
-        if (blog.isPresent()) comment.setOwner(blog.get());
+        newsRepository.findById(commentModel.getOwnerId()).stream()
+                .filter(Objects::nonNull).forEach(comment::setOwner);
+        blogRepository.findById(commentModel.getOwnerId()).stream()
+                .filter(Objects::nonNull).forEach(comment::setOwner);
         Optional<Comment> comment1 = commentRepository.findById(commentModel.getParentId());
         if (comment1.isPresent()) comment.setParent(comment1.get());
         comment.setBody(commentModel.getBody());
@@ -85,10 +88,10 @@ public class CommentService {
 
     public CommentModel updateComment(Long id, CommentModel commentModel){
         Comment comment = commentRepository.findById(id).get();
-        Optional<News> news = newsRepository.findById(commentModel.getOwnerId());
-        Optional<Blog> blog = blogRepository.findById(commentModel.getOwnerId());
-        if (news.isPresent()) comment.setOwner(news.get());
-        if (blog.isPresent()) comment.setOwner(blog.get());
+        newsRepository.findById(commentModel.getOwnerId()).stream()
+                .filter(Objects::nonNull).forEach(comment::setOwner);
+        blogRepository.findById(commentModel.getOwnerId()).stream()
+                .filter(Objects::nonNull).forEach(comment::setOwner);
         Optional<Comment> comment1 = commentRepository.findById(commentModel.getParentId());
         if (comment1.isPresent()) comment.setParent(comment1.get());
         comment.setBody(commentModel.getBody());
@@ -97,10 +100,10 @@ public class CommentService {
 
     public CommentModel updatePartiallyComment(Long id, CommentModel commentModel) {
         Comment comment = commentRepository.findById(id).get();
-        Optional<News> news = newsRepository.findById(commentModel.getOwnerId());
-        Optional<Blog> blog = blogRepository.findById(commentModel.getOwnerId());
-        if (news.isPresent()) comment.setOwner(news.get());
-        if (blog.isPresent()) comment.setOwner(blog.get());
+        newsRepository.findById(commentModel.getOwnerId()).stream()
+                .filter(Objects::nonNull).forEach(comment::setOwner);
+        blogRepository.findById(commentModel.getOwnerId()).stream()
+                .filter(Objects::nonNull).forEach(comment::setOwner);
         Optional<Comment> comment1 = commentRepository.findById(commentModel.getParentId());
         if (comment1.isPresent()) comment.setParent(comment1.get());
         comment.setBody(commentModel.getBody());

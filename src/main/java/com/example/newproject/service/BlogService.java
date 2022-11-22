@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class BlogService {
@@ -22,15 +23,14 @@ public class BlogService {
     public List<BlogModel> getAllBlogs() {
         Iterable<Blog> blogList = blogRepository.findAll();
         List<BlogModel> blogModelList = new ArrayList<>();
-        for (Blog blog:blogList) {
+        blogList.forEach(blog -> {
             BlogModel blogModel = BlogModel.toModel(blog);
             blogModelList.add(blogModel);
-        }
+        });
         return blogModelList;
     }
 
-    public BlogModel getBlogById(Long id) {
-        return BlogModel.toModel(blogRepository.findById(id).get());
+    public BlogModel getBlogById(Long id) { return BlogModel.toModel(blogRepository.findById(id).get());
     }
 
     public BlogModel updateBlog(Long id, BlogModel blog) {
